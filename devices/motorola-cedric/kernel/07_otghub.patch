@@ -1,0 +1,12 @@
+--- a/drivers/usb/core/hub.c	2021-04-10 13:02:04.172469774 +0200
++++ b/drivers/usb/core/hub.c	2021-04-10 13:02:43.921730359 +0200
+@@ -2308,8 +2308,9 @@
+ 				dev_err(&udev->dev,
+ 					"set a_alt_hnp_support failed: %d\n",
+ 					err);
+ 		}
++	}
+ #endif
+ 	return err;
+ }
+ 

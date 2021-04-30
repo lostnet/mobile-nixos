@@ -17,6 +17,8 @@
 
   mobile.boot.stage-1 = {
     kernel.package = pkgs.callPackage ./kernel { };
+    # kernel.package = pkgs.callPackage pkgs.linuxPackages_latest { };
+    # kernel.package = pkgs.linux_5_11;
   };
 
   # mobile.device.firmware = pkgs.callPackage ./firmware {};
@@ -37,7 +39,7 @@
   #   Kernel: ~8.8M
   #   DT:      1.2M
   # We're left with ~6MB for the compressed initrd.
-  mobile.boot.stage-1.compression = lib.mkDefault "gz";
+  mobile.boot.stage-1.compression = lib.mkDefault "gzip";
 
   boot.kernelParams = [
     "sched_enable_hmp=1"
@@ -50,17 +52,22 @@
     "mdss_mdp.panel=1:dsi:0:qcom,mdss_dsi_mot_tianma_497_1080p_video_v0"
   ];
 
-  mobile.usb.mode = "android_usb";
-  # Google
-  mobile.usb.idVendor = "18D1";
-  # "Nexus 4"
-  mobile.usb.idProduct = "D001";
 
+  mobile.system.vendor.partition = "/dev/disk/by-partlabel/vendor";
   mobile.system.type = "android";
 
   mobile.quirks.qualcomm.fb-notify.enable = true;
-
-  mobile.quirks.qualcomm.wcnss-wlan.enable = true;
+  mobile.quirks.qualcomm.dwc3-otg_switch.enable = true;
+  mobile.quirks.qualcomm.wcnss-wlan.enable = false;
   mobile.boot.stage-1.crashToBootloader = true;
+
+  mobile.usb.mode = "gadgetfs";
+  mobile.usb.idVendor  = "22B8"; # Motorola
+  mobile.usb.idProduct = "2E81"; # "Moto G"
+
+  mobile.usb.gadgetfs.functions = {
+    rndis = "rndis_bam.rndis";
+    adb = "ffs.adb";
+  };
 
 }

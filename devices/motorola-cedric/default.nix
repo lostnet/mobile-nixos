@@ -43,7 +43,12 @@
 
   boot.kernelParams = [
     "sched_enable_hmp=1"
+#    "console=ttyHSL0,115200,n8"
+    "lpm_levels.sleep_disabled=1"
+    "androidboot.selinux=permissive"
+#    "androidboot.console=ttyHSL0"
     "androidboot.hardware=qcom"
+    "msm_rtb.filter=0x237"
     "ehci-hcd.park=3"
     "androidboot.bootdevice=7824900.sdhci"
     "movablecore=160M"
@@ -57,17 +62,17 @@
   mobile.system.type = "android";
 
   mobile.quirks.qualcomm.fb-notify.enable = true;
-  mobile.quirks.qualcomm.dwc3-otg_switch.enable = true;
+#  mobile.quirks.qualcomm.dwc3-otg_switch.enable = true;
   mobile.quirks.qualcomm.wcnss-wlan.enable = false;
   mobile.boot.stage-1.crashToBootloader = true;
 
-  mobile.usb.mode = "gadgetfs";
+  mobile.usb.mode = "android_usb";
   mobile.usb.idVendor  = "22B8"; # Motorola
   mobile.usb.idProduct = "2E81"; # "Moto G"
 
-  mobile.usb.gadgetfs.functions = {
-    rndis = "rndis_bam.rndis";
-    adb = "ffs.adb";
-  };
+#  mobile.usb.gadgetfs.functions = {
+   #  rndis = "rndis_bam.rndis";
+#    adb = "ffs.adb";
+#  };
 
 }

@@ -58,17 +58,40 @@
   ];
 
 
-  mobile.system.vendor.partition = "/dev/disk/by-partlabel/vendor";
+#  mobile.system.vendor.partition = "/dev/disk/by-partlabel/vendor";
   mobile.system.type = "android";
-
   mobile.quirks.qualcomm.fb-notify.enable = true;
+  mobile.boot.stage-1.fbterm = {
+    enable = true;
+#    fb = "/dev/fb0";
+    tty = "2";
+  };
+  mobile.boot.stage-1.bootlog.enable = false;
+  mobile.boot.stage-1.shell = {
+    enable = false;
+    console = "tty1";
+  };
+  systemd.services."getty@tty1" = {
+    enable = true;
+  };
+  systemd.services."getty@tty2" = {
+    enable = true;
+  };
+ 
+
 #  mobile.quirks.qualcomm.dwc3-otg_switch.enable = true;
   mobile.quirks.qualcomm.wcnss-wlan.enable = false;
   mobile.boot.stage-1.crashToBootloader = true;
 
   mobile.usb.mode = "android_usb";
-  mobile.usb.idVendor  = "22B8"; # Motorola
-  mobile.usb.idProduct = "2E81"; # "Moto G"
+  # Google
+  mobile.usb.idVendor = "18D1";
+  # "Nexus 4"
+  mobile.usb.idProduct = "D001";
+
+#  mobile.usb.mode = "android_usb";
+#  mobile.usb.idVendor  = "22B8"; # Motorola
+#  mobile.usb.idProduct = "2E81"; # "Moto G"
 
 #  mobile.usb.gadgetfs.functions = {
    #  rndis = "rndis_bam.rndis";
